@@ -27,4 +27,22 @@ defmodule ElixirTodo do
   def contains?(list, item) do 
     Enum.member?(list, item)
   end
+
+  def see_items(list, count) do
+    {_seen, to_see} = Enum.split(list, -count)
+    to_see
+  end
+
+  def save(list, filename) do 
+    binary = :erlang.term_to_binary(list)
+    File.write(filename, binary)
+  end
+
+  def selection(number_of_items) do
+    
+    ElixirTodo.create_list
+    |> ElixirTodo.randomize
+    |> ElixirTodo.see_items(number_of_items)
+  end
+
 end
